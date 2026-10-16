@@ -1,0 +1,191 @@
+
+<!DOCTYPE html>
+<html lang="pt">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="theme-color" content="#102b50">
+  <title>IDEALFORMA | Centro de Formação</title>
+  <style>
+    * { box-sizing: border-box; }
+    body {
+      margin: 0;
+      font-family: Arial, sans-serif;
+      background: #f4f7fb;
+      color: #172b4d;
+    }
+    header {
+      background: #102b50;
+      color: white;
+      padding: 20px;
+      text-align: center;
+    }
+    header h1 { margin: 0; letter-spacing: 1px; }
+    header p { margin-bottom: 0; color: #dce8f8; }
+    nav {
+      display: flex;
+      justify-content: center;
+      flex-wrap: wrap;
+      gap: 10px;
+      padding: 14px;
+      background: white;
+    }
+    nav a {
+      color: #102b50;
+      text-decoration: none;
+      font-weight: bold;
+      padding: 8px;
+    }
+    .hero {
+      background: #173e70;
+      color: white;
+      padding: 40px 22px;
+      text-align: center;
+    }
+    .hero h2 { font-size: 28px; }
+    .hero p { line-height: 1.6; }
+    .button {
+      display: inline-block;
+      background: #f3b52b;
+      color: #102b50;
+      border: 0;
+      border-radius: 8px;
+      padding: 12px 18px;
+      font-weight: bold;
+      text-decoration: none;
+      cursor: pointer;
+    }
+    main { max-width: 900px; margin: auto; padding: 22px; }
+    .courses {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+      gap: 16px;
+    }
+    .card {
+      background: white;
+      padding: 20px;
+      border-radius: 12px;
+      box-shadow: 0 3px 12px #102b5010;
+    }
+    .card h3 { color: #173e70; }
+    .price { font-weight: bold; color: #176b49; }
+    section { margin-bottom: 32px; }
+    form { display: grid; gap: 12px; }
+    input, select {
+      width: 100%;
+      padding: 12px;
+      border: 1px solid #cbd5e1;
+      border-radius: 7px;
+      font-size: 16px;
+      background: white;
+    }
+    #mensagem { font-weight: bold; }
+    footer {
+      background: #102b50;
+      color: white;
+      padding: 22px;
+      text-align: center;
+    }
+  </style>
+</head>
+<body>
+  <header>
+    <h1>IDEALFORMA</h1>
+    <p>Aprender hoje. Transformar o amanhã.</p>
+  </header>
+
+  <nav>
+    <a href="#inicio">Início</a>
+    <a href="#cursos">Cursos</a>
+    <a href="#inscricao">Inscrições</a>
+    <a href="#sobre">Sobre nós</a>
+  </nav>
+
+  <div class="hero" id="inicio">
+    <h2>Investe no teu futuro!</h2>
+    <p>Descobre novas competências e prepara-te para novas oportunidades profissionais.</p>
+    <a class="button" href="#cursos">Explorar cursos</a>
+  </div>
+
+  <main>
+    <section id="cursos">
+      <h2>Os nossos cursos</h2>
+      <p>Escolhe a formação que melhor se adapta aos teus objetivos.</p>
+      <div class="courses" id="listaCursos"></div>
+    </section>
+
+    <section id="inscricao" class="card">
+      <h2>Pedido de inscrição</h2>
+      <p>Preenche os campos para demonstrar o teu interesse num curso.</p>
+      <form id="formInscricao">
+        <input id="nome" type="text" placeholder="Nome completo" required>
+        <input id="email" type="email" placeholder="E-mail" required>
+        <select id="curso" required>
+          <option value="">Seleciona um curso</option>
+        </select>
+        <select id="modalidade" required>
+          <option value="">Seleciona a modalidade</option>
+          <option>Presencial</option>
+          <option>Online</option>
+        </select>
+        <button class="button" type="submit">Enviar pedido</button>
+      </form>
+      <p id="mensagem" role="status"></p>
+    </section>
+
+    <section id="sobre" class="card">
+      <h2>Sobre a IDEALFORMA</h2>
+      <p>Somos um projeto dedicado à formação profissional e ao desenvolvimento de competências.</p>
+      <p>Formação presencial e online, com foco na aprendizagem e no crescimento profissional.</p>
+    </section>
+  </main>
+
+  <footer>
+    <p><strong>IDEALFORMA</strong></p>
+    <p>Centro de Formação Profissional</p>
+    <p>© <span id="ano"></span> IDEALFORMA</p>
+  </footer>
+
+  <script>
+    const cursos = [
+      { nome: "Informática", duracao: "3 meses", preco: 35000 },
+      { nome: "Gestão Empresarial", duracao: "4 meses", preco: 45000 },
+      { nome: "Contabilidade", duracao: "4 meses", preco: 40000 }
+    ];
+
+    const lista = document.getElementById("listaCursos");
+    const seletor = document.getElementById("curso");
+
+    cursos.forEach((curso) => {
+      const cartao = document.createElement("article");
+      cartao.className = "card";
+      const titulo = document.createElement("h3");
+      titulo.textContent = curso.nome;
+      const duracao = document.createElement("p");
+      duracao.textContent = "Duração: " + curso.duracao;
+      const preco = document.createElement("p");
+      preco.className = "price";
+      preco.textContent = curso.preco.toLocaleString("pt-PT") + " Kz";
+      const botao = document.createElement("a");
+      botao.className = "button";
+      botao.href = "#inscricao";
+      botao.textContent = "Pedir inscrição";
+      cartao.append(titulo, duracao, preco, botao);
+      lista.appendChild(cartao);
+
+      const opcao = document.createElement("option");
+      opcao.value = curso.nome;
+      opcao.textContent = curso.nome;
+      seletor.appendChild(opcao);
+    });
+
+    document.getElementById("ano").textContent = new Date().getFullYear();
+
+    document.getElementById("formInscricao").addEventListener("submit", (evento) => {
+      evento.preventDefault();
+      document.getElementById("mensagem").textContent =
+        "Demonstração concluída! Este pedido ainda não foi enviado à direção. Contacta o centro para formalizar a inscrição.";
+    });
+  </script>
+</body>
+</html>
